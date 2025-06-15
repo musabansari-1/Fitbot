@@ -65,9 +65,8 @@ export default function Chat() {
 
   return (
     // --- KEY CHANGE HERE ---
-    // Changed h-screen to h-dvh to respect mobile browser UI.
-    // Added overflow-hidden to prevent the whole page from scrolling.
-    <div className="flex flex-col h-dvh max-w-4xl mx-auto bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+    // Added padding using CSS safe-area-inset variables to respect device notches and bars.
+    <div className="flex flex-col h-dvh max-w-4xl mx-auto bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       {/* Header (remains fixed at the top) */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 shadow-lg flex-shrink-0">
         <div className="flex items-center gap-3">
