@@ -2,101 +2,217 @@ interface ResponseData {
   keywords: string[];
   response: string;
   emoji: string;
+  related?: string[];
+  followUps?: { // New field for suggested follow-up questions
+    question: string;
+    keywords: string[];
+  }[];
 }
 
 export const responses: ResponseData[] = [
+  // Greetings
   {
-    keywords: ['hello', 'hi', 'hey', 'start', 'greetings'],
+    keywords: ['hello', 'hi', 'hey', 'start', 'greetings', 'wassup', 'yo'],
     response: "Hey there, fitness warrior! 💪 I'm your personal gym assistant. I'm here to help you with workouts, nutrition, form tips, and anything fitness-related. What would you like to know?",
-    emoji: "👋"
+    emoji: "👋",
+    related: ['beginner', 'motivation', 'workout plan'],
+    followUps: [
+      {
+        question: "How much protein should I eat?",
+        keywords: ['protein']
+      },
+      {
+        question: "What's a good beginner workout?",
+        keywords: ['beginner']
+      },
+      {
+        question: "How can I stay motivated?",
+        keywords: ['motivation']
+      }
+    ]
+  },
+
+  // Protein and Nutrition
+  {
+    keywords: ['protein', 'how much protein', 'protein intake', 'daily protein', 'protein needs'],
+    response: "Great question! For muscle building, aim for 0.8-1.2g of protein per pound of body weight daily. Good sources include:\n\n- Animal: Chicken, turkey, lean beef, fish, eggs, Greek yogurt\n- Plant: Tofu, tempeh, lentils, chickpeas, quinoa\n- Supplements: Whey, casein, pea protein\n\nSpread intake throughout the day for optimal absorption! 🥩",
+    emoji: "🥩",
+    related: ['vegetarian protein', 'post workout', 'bulking', 'cutting'],
+    followUps: [
+      {
+        question: "What if I'm vegetarian?",
+        keywords: ['vegetarian protein']
+      },
+      {
+        question: "When should I eat protein around workouts?",
+        keywords: ['post workout']
+      },
+      {
+        question: "Does this change if I'm trying to lose weight?",
+        keywords: ['cutting']
+      }
+    ]
   },
   {
-    keywords: ['protein', 'how much protein', 'protein intake', 'daily protein'],
-    response: "Great question! For muscle building, aim for 0.8-1.2g of protein per pound of body weight daily. Good sources include lean meats, fish, eggs, Greek yogurt, legumes, and protein powder. Spread it throughout the day for optimal absorption! 🥩",
-    emoji: "🥩"
+    keywords: ['vegetarian protein', 'vegan protein', 'plant protein'],
+    response: "Excellent plant-based protein options:\n\n- Complete proteins: Quinoa, buckwheat, hemp seeds, soy (tofu, tempeh)\n- Combos: Rice + beans, hummus + pita, peanut butter on whole grain\n- High-protein veggies: Lentils, chickpeas, black beans, edamame\n\nAim for variety to get all essential amino acids! 🌱",
+    emoji: "🌱",
+    related: ['protein', 'nutrition', 'meal planning'],
+    followUps: [
+      {
+        question: "How do these compare to animal proteins?",
+        keywords: ['protein']
+      },
+      {
+        question: "What about protein supplements for vegetarians?",
+        keywords: ['supplements']
+      }
+    ]
   },
+
+  // Weight Loss
   {
-    keywords: ['lose weight', 'weight loss', 'fat loss', 'burn fat', 'cutting'],
-    response: "Weight loss comes down to being in a caloric deficit! Combine resistance training to preserve muscle, cardio for heart health, and a balanced diet. Aim for 1-2 lbs per week. Remember: consistency beats perfection! 🔥",
-    emoji: "🔥"
+    keywords: ['lose weight', 'weight loss', 'fat loss', 'burn fat', 'cutting', 'slim down'],
+    response: "Sustainable weight loss requires a multi-approach strategy:\n\n1️⃣ Nutrition: 300-500 calorie deficit, high protein, whole foods\n2️⃣ Training: Strength training 3-4x/week + cardio/HIIT 2-3x\n3️⃣ Recovery: 7-9 hours sleep, stress management\n4️⃣ Consistency: Aim for 1-2 lbs loss per week\n\nRemember: You can't out-train a bad diet! 🔥",
+    emoji: "🔥",
+    related: ['metabolism', 'plateau', 'meal planning', 'cardio'],
+    followUps: [
+      {
+        question: "How do I calculate my calorie needs?",
+        keywords: ['calorie calculator']
+      },
+      {
+        question: "What if I stop losing weight?",
+        keywords: ['plateau']
+      },
+      {
+        question: "Is cardio or weights better for fat loss?",
+        keywords: ['cardio vs weights']
+      }
+    ]
   },
+
+  // Muscle Building
   {
-    keywords: ['build muscle', 'gain muscle', 'muscle building', 'bulking', 'hypertrophy'],
-    response: "To build muscle effectively: Progressive overload is key! Focus on compound movements, eat in a slight caloric surplus, get 7-9 hours of sleep, and be patient. Muscle growth takes time but the results are worth it! 💪",
-    emoji: "💪"
+    keywords: ['build muscle', 'gain muscle', 'muscle building', 'bulking', 'hypertrophy', 'get bigger'],
+    response: "Muscle growth fundamentals:\n\n🏋️ Progressive Overload: Gradually increase weight/reps\n🍗 Nutrition: 300-500 calorie surplus, 1g protein/lb\n💤 Recovery: 7-9 hours sleep, rest days\n📊 Programming: 3-6x/week, compound movements first\n⏳ Patience: 0.5-1 lb muscle gain per month (natural)\n\nTrack workouts and adjust every 4-6 weeks! 💪",
+    emoji: "💪",
+    related: ['protein', 'workout plan', 'supplements', 'rest days'],
+    followUps: [
+      {
+        question: "What's the best workout split for muscle growth?",
+        keywords: ['workout plan']
+      },
+      {
+        question: "Do I need supplements to build muscle?",
+        keywords: ['supplements']
+      },
+      {
+        question: "How important is sleep for muscle growth?",
+        keywords: ['sleep']
+      }
+    ]
   },
+
+  // Exercises and Form
   {
-    keywords: ['squat', 'squat form', 'how to squat'],
-    response: "Perfect squat form: Feet shoulder-width apart, knees track over toes, chest up, core tight. Descend like sitting back into a chair, go to parallel or below, then drive through your heels. Start with bodyweight! 🦵",
-    emoji: "🦵"
+    keywords: ['squat', 'squat form', 'how to squat', 'back squat', 'squatting'],
+    response: "Perfecting your squat:\n\n🔧 Setup: Bar on traps/rear delts, grip slightly wider than shoulders\n🦶 Stance: Feet shoulder-width, toes slightly out\n⬇️ Descent: Break at hips first, knees track toes, descend to parallel or below\n⬆️ Ascent: Drive through heels, squeeze glutes at top\n\nCommon mistakes:\n- Knees caving in\n- Heels lifting\n- Excessive forward lean\n- Not hitting depth\n\nStart light, film yourself, and progress gradually! 🦵",
+    emoji: "🦵",
+    related: ['leg workout', 'form check', 'progressive overload'],
+    followUps: [
+      {
+        question: "How do I fix knee pain during squats?",
+        keywords: ['knee pain']
+      },
+      {
+        question: "What's the difference between high bar and low bar squats?",
+        keywords: ['high bar squat']
+      },
+      {
+        question: "How often should I squat per week?",
+        keywords: ['squat frequency']
+      }
+    ]
   },
+
+  // Workout Planning
   {
-    keywords: ['deadlift', 'deadlift form', 'how to deadlift'],
-    response: "Deadlift basics: Feet hip-width apart, bar over mid-foot, straight back, chest up. Hinge at hips, grab bar just outside legs, drive through heels and squeeze glutes at top. Start light and focus on form! 🏋️‍♂️",
-    emoji: "🏋️‍♂️"
+    keywords: ['workout plan', 'routine', 'program', 'training split'],
+    response: "Effective workout splits:\n\n💪 Beginner (Full Body): 3x/week, compound movements\n⚖️ Intermediate (Upper/Lower): 4x/week, more isolation work\n🏆 Advanced (Push/Pull/Legs): 5-6x/week, higher volume\n\nKey principles:\n- Progressive overload\n- 48-72 hours between working same muscles\n- Balance push/pull movements\n- Include both compound and isolation exercises\n\nConsistency with any good program beats hopping between plans! 📊",
+    emoji: "📊",
+    related: ['progressive overload', 'rest days', 'volume'],
+    followUps: [
+      {
+        question: "How do I progress in my workouts?",
+        keywords: ['progressive overload']
+      },
+      {
+        question: "How many rest days should I take?",
+        keywords: ['rest days']
+      },
+      {
+        question: "What's the ideal workout volume?",
+        keywords: ['volume']
+      }
+    ]
   },
+
+  // Default Response
   {
-    keywords: ['bench press', 'bench form', 'chest workout'],
-    response: "Bench press technique: Lie flat, feet firmly planted, arch your back slightly, grip bar just wider than shoulders. Lower with control to chest, press up explosively. Always use a spotter for safety! 💥",
-    emoji: "💥"
-  },
-  {
-    keywords: ['pre workout', 'before workout', 'pre-workout meal'],
-    response: "Pre-workout fuel: 30-60 minutes before, have easily digestible carbs + some protein. Try banana with peanut butter, oatmeal with berries, or Greek yogurt with honey. Stay hydrated! 🍌",
-    emoji: "🍌"
-  },
-  {
-    keywords: ['post workout', 'after workout', 'post-workout meal', 'recovery'],
-    response: "Post-workout recovery: Within 30-60 minutes, combine protein and carbs to refuel muscles. Chocolate milk, protein shake with banana, or chicken with rice work great. Don't forget to hydrate! 🥛",
-    emoji: "🥛"
-  },
-  {
-    keywords: ['rest day', 'recovery day', 'how often rest'],
-    response: "Rest days are crucial! Your muscles grow during recovery, not just during workouts. Take 1-2 full rest days per week, or do light activities like walking or yoga. Listen to your body! 😴",
-    emoji: "😴"
-  },
-  {
-    keywords: ['beginner', 'start working out', 'new to gym', 'first time'],
-    response: "Welcome to your fitness journey! Start with 2-3 days per week, focus on basic movements (squats, push-ups, rows), learn proper form first, then gradually increase intensity. You've got this! 🌟",
-    emoji: "🌟"
-  },
-  {
-    keywords: ['cardio', 'running', 'treadmill', 'heart rate'],
-    response: "Cardio is great for heart health! Mix it up: HIIT for fat burning, steady-state for endurance. Aim for 150 minutes moderate or 75 minutes vigorous per week. Find activities you enjoy! 🏃‍♂️",
-    emoji: "🏃‍♂️"
-  },
-  {
-    keywords: ['water', 'hydration', 'how much water'],
-    response: "Stay hydrated! Aim for at least 8 glasses (64oz) daily, more if you're active. During workouts, sip regularly. Good hydration improves performance and recovery. Your body will thank you! 💧",
-    emoji: "💧"
-  },
-  {
-    keywords: ['sleep', 'recovery sleep', 'how much sleep'],
-    response: "Sleep is your secret weapon! Aim for 7-9 hours nightly. During deep sleep, your body releases growth hormone and repairs muscle tissue. Poor sleep = poor gains. Prioritize it! 😴",
-    emoji: "🛌"
-  },
-  {
-    keywords: ['motivation', 'stay motivated', 'consistency'],
-    response: "Motivation gets you started, but habits keep you going! Set small, achievable goals, track your progress, find a workout buddy, and remember why you started. Some days will be tough - that's normal! 🎯",
-    emoji: "🎯"
+    keywords: [],
+    response: "That's a great fitness-related question! While I specialize in workouts, nutrition, and exercise science, I might need more specifics to give the best answer. Could you rephrase or ask about:\n\n- Specific exercises or form tips\n- Nutrition for your goals\n- Workout programming\n- Recovery strategies\n\nI'm here to help you reach your fitness goals! 💪",
+    emoji: "🤔",
+    followUps: [
+      {
+        question: "How much protein should I eat?",
+        keywords: ['protein']
+      },
+      {
+        question: "What's a good beginner workout?",
+        keywords: ['beginner']
+      },
+      {
+        question: "How can I lose belly fat?",
+        keywords: ['fat loss']
+      }
+    ]
   }
 ];
 
-export function findResponse(input: string): { response: string; emoji: string } {
+export function findResponse(input: string): { response: string; emoji: string; followUps?: { question: string; keywords: string[] }[] } {
   const lowerInput = input.toLowerCase();
   
+  // First try exact matches
   for (const responseData of responses) {
-    if (responseData.keywords.some(keyword => lowerInput.includes(keyword))) {
+    if (responseData.keywords.some(keyword => 
+      lowerInput.split(/\s+/).includes(keyword.toLowerCase())
+    )) {
       return {
         response: responseData.response,
-        emoji: responseData.emoji
+        emoji: responseData.emoji,
+        followUps: responseData.followUps
+      };
+    }
+  }
+  
+  // Then try partial matches
+  for (const responseData of responses) {
+    if (responseData.keywords.some(keyword => 
+      lowerInput.includes(keyword.toLowerCase())
+    )) {
+      return {
+        response: responseData.response,
+        emoji: responseData.emoji,
+        followUps: responseData.followUps
       };
     }
   }
   
   // Default response
   return {
-    response: "That's a great question! While I specialize in fitness, nutrition, and exercise advice, I might not have the perfect answer for that specific topic. Try asking about workouts, nutrition, form tips, or general fitness guidance - I'm here to help! 💪",
-    emoji: "🤔"
+    response: responses[responses.length - 1].response,
+    emoji: responses[responses.length - 1].emoji,
+    followUps: responses[responses.length - 1].followUps
   };
 }
