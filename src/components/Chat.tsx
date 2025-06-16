@@ -64,12 +64,10 @@ export default function Chat() {
   };
 
   return (
-    // --- KEY CHANGE HERE ---
-    // Added padding using CSS safe-area-inset variables to respect device notches and bars.
-    <div className="flex flex-col h-dvh max-w-4xl mx-auto bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
-      {/* Header (remains fixed at the top) */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 shadow-lg flex-shrink-0">
-        <div className="flex items-center gap-3">
+    <div className="flex flex-col h-screen max-w-4xl mx-auto bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+      {/* Header (fixed height) */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 shadow-lg h-20 flex-shrink-0">
+        <div className="flex items-center gap-3 h-full">
           <div className="bg-white/20 p-2 rounded-full">
             <Bot className="w-6 h-6" />
           </div>
@@ -86,7 +84,7 @@ export default function Chat() {
         </div>
       </div>
 
-      {/* Messages (this area will now scroll independently) */}
+      {/* Messages (flexible height, scrollable) */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {chatState.messages.map((message, index) => (
           <Message
@@ -99,8 +97,8 @@ export default function Chat() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input (remains fixed at the bottom) */}
-      <div className="flex-shrink-0">
+      {/* Input (fixed height) */}
+      <div className="p-4 flex-shrink-0 border-t border-blue-100 bg-white">
         <MessageInput
           onSendMessage={handleSendMessage}
           disabled={chatState.isTyping}
