@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, User, Dumbbell } from 'lucide-react';
+import { Bot, Dumbbell } from 'lucide-react';
 import Message from './Message';
 import MessageInput from './MessageInput';
 import TypingIndicator from './TypingIndicator';
@@ -14,10 +14,10 @@ export default function Chat() {
         text: "Hey there, fitness warrior! 👋 I'm FitBot, your personal gym assistant. I'm here to help you with workouts, nutrition, form tips, and anything fitness-related. What would you like to know?",
         isBot: true,
         timestamp: new Date(),
-        emoji: '🤖'
-      }
+        emoji: '🤖',
+      },
     ],
-    isTyping: false
+    isTyping: false,
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -41,10 +41,9 @@ export default function Chat() {
     setChatState(prev => ({
       ...prev,
       messages: [...prev.messages, userMessage],
-      isTyping: true
+      isTyping: true,
     }));
 
-    // Simulate bot thinking time
     setTimeout(() => {
       const { response, emoji } = findResponse(text);
       const botMessage: MessageType = {
@@ -52,21 +51,24 @@ export default function Chat() {
         text: response,
         isBot: true,
         timestamp: new Date(),
-        emoji
+        emoji,
       };
 
       setChatState(prev => ({
         ...prev,
         messages: [...prev.messages, botMessage],
-        isTyping: false
+        isTyping: false,
       }));
-    }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+    }, 1000 + Math.random() * 1000);
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-4xl mx-auto bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 shadow-lg">
+    <div className="flex flex-col h-[100dvh] fixed inset-0 max-w-4xl mx-auto bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+      {/* Header - with safe area padding */}
+      <div 
+        className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 shadow-lg"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
         <div className="flex items-center gap-3">
           <div className="bg-white/20 p-2 rounded-full">
             <Bot className="w-6 h-6" />
@@ -82,8 +84,14 @@ export default function Chat() {
         </div>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-1">
+      {/* Messages container with safe area padding */}
+      <div 
+        className="flex-1 overflow-y-auto p-4 space-y-1"
+        style={{ 
+          paddingBottom: 'env(safe-area-inset-bottom)',
+          paddingTop: 'env(safe-area-inset-top, 0)'
+        }}
+      >
         {chatState.messages.map((message, index) => (
           <Message
             key={message.id}
@@ -95,11 +103,16 @@ export default function Chat() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <MessageInput
-        onSendMessage={handleSendMessage}
-        disabled={chatState.isTyping}
-      />
+      {/* Input - with safe area padding */}
+      <div 
+        className="w-full bg-gradient-to-br from-slate-50 to-blue-50 p-2 border-t"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <MessageInput
+          onSendMessage={handleSendMessage}
+          disabled={chatState.isTyping}
+        />
+      </div>
     </div>
   );
 }
