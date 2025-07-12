@@ -22,13 +22,15 @@ export default function Message({ message, isLatest }: MessageProps) {
       >
         <div className="flex items-start gap-2">
           {message.emoji && (
+            // <span className="text-lg flex-shrink-0 mt-0.5">{message.emoji}</span>
             <span className="text-lg flex-shrink-0 mt-0.5">{message.emoji}</span>
           )}
           <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">
             {message.text}
           </p>
         </div>
-        <div className="flex justify-end mt-2">
+        {/* <div className="flex justify-end mt-2"> */}
+        <div className="flex justify-end">
           <span
             className={`text-xs ${
               message.isBot ? 'text-gray-400' : 'text-blue-100'
